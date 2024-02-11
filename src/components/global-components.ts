@@ -7,6 +7,8 @@ import BaseSpinner from '@/components/Base/BaseSpinner.vue'
 import BaseCheckbox from '@/components/Base/BaseCheckbox.vue'
 import BaseInput from '@/components/Base/BaseInput.vue'
 import BaseButton from '@/components/Base/BaseButton.vue'
+import BaseTable from '@/components/Base/BaseTable.vue'
+import BaseGenderlist from '@/components/Base/BaseGenderlist.vue'
 
 //Ui
 import AppHeader from '@/components/Layout/AppHeader.vue'
@@ -22,6 +24,8 @@ export default {
     app.component('BaseCheckbox', BaseCheckbox)
     app.component('BaseInput', BaseInput)
     app.component('BaseButton', BaseButton)
+    app.component('BaseTable', BaseTable)
+    app.component('BaseGenderlist', BaseGenderlist)
     app.component('AppHeader', AppHeader)
     app.component('AppSidebar', AppSidebar)
   }

@@ -1,37 +1,29 @@
 <template>
-  <div class="page__title">Add Patient</div>
+  <div class="gridHedarTitle">
+    <div class="page__title">Your patients</div>
+    <div>
+      <BaseButton :variant="'danger'" @click="$router.go(-1)">Back</BaseButton>
+    </div>
+    <div></div>
+  </div>
 
   <div class="addPatient__wrapper">
     <div>
       <div>
         <BaseInput
-          label="First Name"
+          label="First name"
           type="name"
-          placeholder="Your Name"
-          :value="formData.name"
-          :error="errors.name"
+          placeholder="First name"
+          :value="formData.firstName"
+          :error="errors.firstName"
           :disabled="isLoading"
-          @on-input="(value) => changeField('name', value)"
         />
       </div>
-
       <div>
         <BaseInput
-          label="Family Name"
-          type="name"
-          placeholder="Your Name"
-          :value="formData.name"
-          :error="errors.name"
-          :disabled="isLoading"
-          @on-input="(value) => changeField('name', value)"
-        />
-      </div>
-
-      <div>
-        <BaseInput
-          label="Phone Number"
+          label="Phone number"
           type="number"
-          placeholder="Your Phone Number "
+          placeholder="Phone number"
           :value="formData.phoneNumber"
           :error="errors.phoneNumber"
           :disabled="isLoading"
@@ -43,9 +35,9 @@
     <div>
       <div>
         <BaseInput
-          label="Last Name"
+          label="Last name"
           type="name"
-          placeholder="Your Last Name"
+          placeholder="Last name"
           :value="formData.lastName"
           :error="errors.lastName"
           :disabled="isLoading"
@@ -55,26 +47,32 @@
 
       <div>
         <BaseInput
-          label="Data of Birth"
+          label="Date of birth"
           type="number"
-          placeholder="Your data of birth "
+          placeholder=" Date of birth "
           :value="formData.dataOfBirth"
           :error="errors.dataOfBirth"
           :disabled="isLoading"
           @on-input="(value) => changeField('dataOfBirth', value)"
         />
       </div>
+    </div>
+
+    <div>
+      <div>
+        <BaseInput
+          label="Family name"
+          type="text"
+          placeholder="Family name"
+          :value="formData.familyName"
+          :error="errors.familyName"
+          :disabled="isLoading"
+          @on-input="(value) => changeField('familyName', value)"
+        />
+      </div>
 
       <div>
-        <div class="labelGender">Gender</div>
-        <el-select v-model="value" class="m-2" placeholder=" Choose gender" size="large">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
+        <BaseGenderlist v-model="formData.gender" :disabled="isLoading" />
       </div>
 
       <div class="savePatientButton">
@@ -90,13 +88,14 @@ import { ref, reactive } from 'vue'
 import API from '@/api/API'
 
 const isLoading = ref<boolean>(false)
-const value = ref('')
 
 export interface ILoginView {
-  name: string
+  firstName: string
+  LastName: string
+  familyName: string
   phoneNumber: number
-  lastName: string
   dataOfBirth: number
+  gender: string | number
 }
 
 const serverError = reactive({
@@ -107,21 +106,25 @@ const serverSuccess = reactive({
 })
 
 const formData = ref({
-  name: '',
-  phoneNumber: '',
+  firstName: '',
   lastName: '',
-  dataOfBirth: ''
+  familyName: '',
+  phoneNumber: '',
+  dataOfBirth: '',
+  gender: '',
 })
 
 const errors = reactive({
-  name: '',
-  phoneNumber: '',
+  firstName: '',
   lastName: '',
-  dataOfBirth: ''
+  familyName: '',
+  phoneNumber: '',
+  dataOfBirth: '',
+  gender: '',
 })
 
 const changeField = (
-  propertyName: 'name' | 'phoneNumber' | 'lastName' | 'dataOfBirth',
+  propertyName: 'firstName' | 'lastName' | 'familyName' | 'phoneNumber' | 'dataOfBirth' | 'gender',
   value: string
 ) => {
   formData.value[propertyName] = value
@@ -130,56 +133,25 @@ const changeField = (
     errors[propertyName] = ''
   }
 }
-
-const options = [
-  {
-    value: 'Male',
-    label: 'Male'
-  },
-  {
-    value: 'Female',
-    label: 'Female'
-  },
-  {
-    value: 'Gey',
-    label: 'Gey'
-  }
-]
 </script>
 
 <style lang="scss">
+.gridHedarTitle {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .addPatient__wrapper {
   padding: 20px;
   background: #fff;
   border-radius: 10px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 50px;
 }
 
-.el-select__selected-item .el-select__placeholder {
-  color: #000 !important;
-}
-
-.el-select__placeholder {
-  color: #000 !important;
-  position: inherit !important;
-  margin-top: 10px !important;
-  margin-bottom: -10px !important;
-}
-
-.el-select--large .el-select__wrapper {
-  min-height: 47px !important;
-}
-
-.labelGender {
-  font-family: $base-font;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 166%;
-  color: #3f3f3f;
-  margin-bottom: 8px;
-}
 .savePatientButton {
   display: flex;
   justify-content: space-between;

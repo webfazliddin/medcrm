@@ -82,7 +82,7 @@ const handleButtonClick = () => {
 }
 
 .danger {
-  background-color: $color-error;
+  background-color: #E52E22;
   border: none;
   color: $color-white;
 }

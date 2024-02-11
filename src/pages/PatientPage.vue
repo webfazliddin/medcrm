@@ -1,36 +1,57 @@
 <template>
   <div>
-    <div class="page__title">Your patients</div>
+    <div class="gridHedarTitle">
+      <div class="page__title">Your patients</div>
+      <div>
+        <BaseButton :variant="'danger'" @click="$router.go(-1)">Back</BaseButton>
+      </div>
+      <div></div>
+    </div>
     <div class="tableBG">
       <div class="patient__wrapper">
         <div class="patient__wrapper--right">
           <BaseInput class="patient__search"></BaseInput>
           <BaseButton class="patient__wrapper--searchButton" variant="green">
-            <!-- Search Icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-search"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+              />
+            </svg>
           </BaseButton>
         </div>
         <RouterLink to="/home/add-patient" style="text-decoration: none">
-          <BaseButton style="height: 40px; display: flex; align-items: center" variant="green">
-            <!-- Plus Icon -->
+          <BaseButton style="display: flex; align-items: center" variant="green">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon-tabler icon-tabler-plus"
+              width="17px"
+              height="17px"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M12 5l0 14"></path>
+              <path d="M5 12l14 0"></path>
+            </svg>
             Яратиш
           </BaseButton>
         </RouterLink>
       </div>
 
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="fullname" label="Patient information" width="340px" />
-        <el-table-column prop="dateOfBirth" label="Date of birth" align="center" />
-        <el-table-column prop="phoneNumber" label="Phone number" align="center" />
-        <el-table-column prop="gender" label="Gender" align="center" />
-        <el-table-column align="center">
-          <template #header>
-            <div style="font-weight: 700; font-size: 14px">Actions</div>
-          </template>
-          <template #default="scope">
-            <!-- Action Icons -->
-          </template>
-        </el-table-column>
-      </el-table>
+      <div>
+        <BaseTable :patients="data" />
+      </div>
     </div>
   </div>
 </template>
@@ -38,24 +59,48 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import API from '@/api/API'
-import { IGetPatient } from '@/types'
 
+interface Patient {
+  fullname: string
+  dateOfBirth: string
+  phoneNumber: string
+  gender: string
+}
 
+const data = ref<Patient[]>([])
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString)
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1 // getMonth() returns 0-11
+  const day = date.getDate()
+  return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+}
 
 onMounted(async () => {
- API.PatientGetList();
-
-
+  try {
+    const response = await API.PatientGetList()
+    // Map the response to your Patient interface
+    data.value = response.map((item: any) => ({
+      id: item.id,
+      fullname: `${item.firstName} ${item.lastName} ${item.familyName}`,
+      dateOfBirth: formatDate(item.dateOfBirth),
+      phoneNumber: item.phoneNumber,
+      gender: item.gender.name // Assuming the gender field is { id: number, name: string }
+    }))
+  } catch (error) {
+    console.error('Failed to fetch patients:', error)
+  }
 })
+const search = ref('')
 </script>
 
 <style lang="scss">
-.el-table__header-wrapper .el-table__header {
-  box-shadow: 0 0 10px rgba(46, 44, 44, 0.4) !important;
-}
-
-* {
-  font-family: $base-font;
+.gridHedarTitle {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .patient__wrapper {
@@ -92,25 +137,8 @@ onMounted(async () => {
   width: 350px;
 }
 
-.svg__action {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
 .tableBG {
   border-radius: 10px;
   background: #fff;
-}
-
-th .cell {
-  font-weight: 700 !important;
-  font-size: 14px !important;
-}
-
-thead {
-  color: #000 !important;
-  font-size: 0.875rem !important;
 }
 </style>

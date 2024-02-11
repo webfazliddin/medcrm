@@ -1,29 +1,28 @@
 export interface ILoginPayload {
-    username: string;
-    password: string;
-  }
+  username: string
+  password: string
+}
 
-  export interface ITreatment {
-    id?: number;
-    name: string;
-    organizationId?: number;
-  }
-  
-  export interface IPostPatient {
-    firstName: string,
-    lastName: string,
-    familyName: string,
-    dateOfBirth: string,
-    phoneNumber: string,
-    genderId: number
-  }
+export interface ITreatment {
+  id?: number
+  name: string
+  organizationId?: number
+}
 
-  export interface IGetPatient {
-    fullName: string,
-    dateOfBirth: string,
-    phoneNumber: string,
-    gender: string
-  }
- 
- 
-  
+export interface IPostPatient {
+  firstName: string
+  lastName: string
+  familyName: string
+  dateOfBirth: string
+  phoneNumber: string
+  genderId: number
+}
+
+export interface IGetPatient {
+  data: any | object
+  id?: number
+  fullName?: string
+  dateOfBirth: string
+  phoneNumber: string
+  gender?: string
+}

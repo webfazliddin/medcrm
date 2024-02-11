@@ -4,6 +4,8 @@ import BaseSpinner from '@/components/Base/BaseSpinner.vue'
 import BaseCheckbox from '@/components/Base/BaseCheckbox.vue'
 import BaseInput from '@/components/Base/BaseInput.vue'
 import BaseButton from '@/components/Base/BaseButton.vue'
+import BaseTable from '@/components/Base/BaseTable.vue'
+import BaseGenderlist from '@/components/Base/BaseGenderlist.vue'
 
 //Ui
 import AppHeader from '@/components/Layout/AppHeader.vue'
@@ -17,6 +19,8 @@ declare module '@vue/runtime-core' {
     BaseAlert: typeof BaseAlert
     BaseInput: typeof BaseInput
     BaseButton: typeof BaseButton
+    BaseTable: typeof BaseTable
+    BaseGenderlist: typeof BaseGenderlist
     BaseSpinner: typeof BaseSpinner
 
     //Layout

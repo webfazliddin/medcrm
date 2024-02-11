@@ -4,7 +4,7 @@
       <div><img src="../../assets/crm-logo.png" /></div>
       <div class="logo__title">MEDCRM</div>
     </div>
-    <el-menu-item index="1">
+    <!-- <el-menu-item index="1">
       <el-icon>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@
         </svg>
       </el-icon>
       <template #title>Dashboard</template>
-    </el-menu-item>
+    </el-menu-item> -->
     <RouterLink to="/home/patient" style="text-decoration: none">
       <el-menu-item index="2">
         <el-icon>
@@ -52,7 +52,7 @@
         <template #title>Patient</template>
       </el-menu-item>
     </RouterLink>
-    <el-menu-item index="3">
+    <!-- <el-menu-item index="3">
       <el-icon>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +147,7 @@
         </svg>
       </el-icon>
       <template #title>Manage</template>
-    </el-menu-item>
+    </el-menu-item> -->
   </div>
 </template>
 
