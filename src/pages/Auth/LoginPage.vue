@@ -2,7 +2,7 @@
   <div class="login">
     <div class="login__wrapper">
       <!-- <h5 class="healseEase">MED <span class="medical">CRM</span></h5> -->
-     <div class="login-logo"> <img src="../../assets/crm-logo.png" alt=""></div>
+      <div class="login-logo"><img src="../../assets/crm-logo.png" alt="" /></div>
 
       <BaseAlert
         v-if="!!serverError.message"
@@ -20,13 +20,22 @@
 
       <BaseInput
         label="Логин"
-        type="username"
-        placeholder="name@example.com"
+        mask="############"
         :value="formData.username"
         :error="errors.username"
         :disabled="isLoading"
         @on-input="(value) => changeField('username', value)"
       />
+      <!-- <BaseInput
+        label="Логин"
+        type="username"
+        mask="############"
+        placeholder="name@example.com"
+        :value="formData.username"
+        :error="errors.username"
+        :disabled="isLoading"
+        @on-input="(value) => changeField('username', value)"
+      /> -->
 
       <BaseInput
         class="baseInput"
@@ -42,7 +51,7 @@
       />
 
       <BaseButton variant="green" class="baseBtn" :loading="isLoading" @on-click="login">
-        Кириш 
+        Кириш
       </BaseButton>
 
       <!-- <div class="text">
@@ -127,9 +136,8 @@ const login = () => {
 </script>
 
 <style lang="scss">
-
 .login {
- background: #E8F0F9;
+  background: #e8f0f9;
   box-shadow: 0px 30px 20px rgba(0, 0, 0, 0.16);
   height: 100vh;
   display: grid;

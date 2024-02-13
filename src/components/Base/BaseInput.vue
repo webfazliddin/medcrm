@@ -11,7 +11,7 @@
         @input="handleInputChange"
         required
         :disabled="disabled"
-        v-maska="mask"
+        v-mask="mask"
       />
 
       <div v-if="type === 'password'" :class="$style.append">
