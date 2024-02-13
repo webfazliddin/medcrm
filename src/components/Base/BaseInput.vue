@@ -11,6 +11,7 @@
         @input="handleInputChange"
         required
         :disabled="disabled"
+        v-maska="mask"
       />
 
       <div v-if="type === 'password'" :class="$style.append">
@@ -74,6 +75,7 @@ export interface IBaseInput {
   showPassword?: boolean
   disabled?: boolean
   error?: string
+  mask?: string
 }
 
 withDefaults(defineProps<IBaseInput>(), {
