@@ -17,7 +17,7 @@
         variant="success"
         :message="serverSuccess.message"
       />
-
+<!-- 
       <BaseInput
         label="Логин"
         mask="############"
@@ -25,8 +25,8 @@
         :error="errors.username"
         :disabled="isLoading"
         @on-input="(value) => changeField('username', value)"
-      />
-      <!-- <BaseInput
+      /> -->
+      <BaseInput
         label="Логин"
         type="username"
         mask="############"
@@ -35,7 +35,7 @@
         :error="errors.username"
         :disabled="isLoading"
         @on-input="(value) => changeField('username', value)"
-      /> -->
+      />
 
       <BaseInput
         class="baseInput"
