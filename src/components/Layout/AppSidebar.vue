@@ -74,7 +74,7 @@
         </svg>
       </el-icon>
       <template #title>Visit</template>
-    </el-menu-item>
+    </el-menu-item> -->
     <RouterLink to="/home/treatment" style="text-decoration: none">
       <el-menu-item index="4">
         <el-icon>
@@ -100,7 +100,7 @@
         <template #title>Treatment</template>
       </el-menu-item></RouterLink
     >
-    <RouterLink to="/home/payment" style="text-decoration: none">
+    <!-- <RouterLink to="/home/payment" style="text-decoration: none">
       <el-menu-item index="5">
         <el-icon>
           <svg
@@ -199,13 +199,13 @@
   &:hover {
     color: #006a60 !important;
     border-radius: 10px !important;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.16);
+    // box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.16);
   }
   &.is-active {
     color: #fff !important;
     background: #006a60 !important;
     border-radius: 10px !important;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.16);
+    // box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.16);
   }
 }
 

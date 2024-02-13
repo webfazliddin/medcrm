@@ -42,7 +42,7 @@ const toggleCollapse = () => {
 
 <style lang="scss">
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 230px;
+  width: 250px;
 }
 
 .el-menu {

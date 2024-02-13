@@ -17,6 +17,7 @@
           :value="formData.firstName"
           :error="errors.firstName"
           :disabled="isLoading"
+          @on-input="(value) => changeField('firstName', value)"
         />
       </div>
       <div>
@@ -29,6 +30,7 @@
           :disabled="isLoading"
           @on-input="(value) => changeField('phoneNumber', value)"
         />
+        <span>{{ errors.phoneNumber }}</span>
       </div>
     </div>
 
@@ -48,12 +50,12 @@
       <div>
         <BaseInput
           label="Date of birth"
-          type="number"
-          placeholder=" Date of birth "
-          :value="formData.dataOfBirth"
-          :error="errors.dataOfBirth"
+          type="date"
+          placeholder="YYYY-MM-DD"
+          :value="formData.dateOfBirth"
+          :error="errors.dateOfBirth"
           :disabled="isLoading"
-          @on-input="(value) => changeField('dataOfBirth', value)"
+          @on-input="(value) => changeField('dateOfBirth', value)"
         />
       </div>
     </div>
@@ -72,12 +74,16 @@
       </div>
 
       <div>
-        <BaseGenderlist v-model="formData.gender" :disabled="isLoading" />
+        <BaseGenderlist
+          :modelValue="formData.genderId"
+          @update:modelValue="(value) => (formData.genderId = value)"
+          :disabled="isLoading"
+        />
       </div>
 
       <div class="savePatientButton">
         <div></div>
-        <div><BaseButton variant="green">Save</BaseButton></div>
+        <div><BaseButton @click="savePatient" variant="green">Save</BaseButton></div>
       </div>
     </div>
   </div>
@@ -86,51 +92,67 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import API from '@/api/API'
+import type { IPostPatient } from '@/types'
 
-const isLoading = ref<boolean>(false)
+const isLoading = ref(false)
 
-export interface ILoginView {
+interface IPatientForm {
   firstName: string
-  LastName: string
+  lastName: string
   familyName: string
-  phoneNumber: number
-  dataOfBirth: number
-  gender: string | number
+  dateOfBirth: string
+  phoneNumber: string
+  genderId: number | null
 }
 
-const serverError = reactive({
-  message: ''
-})
-const serverSuccess = reactive({
-  message: ''
-})
-
-const formData = ref({
+const formData = reactive<IPatientForm>({
   firstName: '',
   lastName: '',
   familyName: '',
+  dateOfBirth: '',
   phoneNumber: '',
-  dataOfBirth: '',
-  gender: '',
+  genderId: null
 })
 
 const errors = reactive({
+  message: '',
   firstName: '',
   lastName: '',
   familyName: '',
   phoneNumber: '',
-  dataOfBirth: '',
-  gender: '',
+  dateOfBirth: '',
+  genderId: ''
 })
 
-const changeField = (
-  propertyName: 'firstName' | 'lastName' | 'familyName' | 'phoneNumber' | 'dataOfBirth' | 'gender',
-  value: string
-) => {
-  formData.value[propertyName] = value
-
+const changeField = (propertyName: keyof IPatientForm, value: string) => {
+  formData[propertyName] = value
   if (errors[propertyName]) {
     errors[propertyName] = ''
+  }
+}
+
+const savePatient = async () => {
+  isLoading.value = true
+  try {
+    const payload: IPostPatient = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      familyName: formData.familyName,
+      dateOfBirth: format(new Date(formData.dateOfBirth), 'yyyy-MM-dd'),
+      phoneNumber: formData.phoneNumber,
+      genderId: formData.genderId || 0
+    }
+
+    console.log('Sending payload:', payload)
+
+    const response = await API.PatientPost(payload)
+  } catch (error) {
+    console.error('Error occurred:', error)
+    if (error.response && error.response.data) {
+      console.error('Server error message:', error.response.data)
+    }
+  } finally {
+    isLoading.value = false
   }
 }
 </script>
@@ -146,7 +168,7 @@ const changeField = (
 .addPatient__wrapper {
   padding: 20px;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 10px;  
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 50px;

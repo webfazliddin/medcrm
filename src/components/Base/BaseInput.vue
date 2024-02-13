@@ -118,7 +118,7 @@ const handleInputChange = (e: Event) => {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr auto;
-  border: 1px solid #cfcdcd;
+  border: 2px solid #cfcdcd;
   border-radius: 7px;
   box-sizing: border-box;
   overflow: hidden;
@@ -127,7 +127,7 @@ const handleInputChange = (e: Event) => {
 
   // }
   &:has(input:focus) {
-    border: 1px solid #01443d;
+    border: 2px solid #01443d;
   }
 }
 
@@ -143,7 +143,12 @@ const handleInputChange = (e: Event) => {
   padding: 12px 44px 12px 12px;
   font-family: $base-font;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: white;
+  cursor: pointer;
   letter-spacing: 1.5px;
 
   &:disabled {

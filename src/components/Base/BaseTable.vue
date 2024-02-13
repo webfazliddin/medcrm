@@ -13,6 +13,25 @@
           <div class="svg__action">
             <div class="svg__action">
               <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon-tabler icon-tabler-pencil"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="#006A60"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  style="cursor: pointer"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                  <path d="M13.5 6.5l4 4"></path>
+                </svg>
+              </div>
+              <div>
                 <RouterLink to="/home/add-visit">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +39,7 @@
                     height="20px"
                     viewBox="0 0 24 24"
                     stroke-width="2"
-                    stroke="currentColor"
+                    stroke="#006A60"
                     fill="none"
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -65,7 +84,7 @@
                   height="24px"
                   viewBox="0 0 24 24"
                   stroke-width="2"
-                  stroke="currentColor"
+                  stroke="#006A60"
                   fill="none"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -120,7 +139,6 @@ export default defineComponent({
   align-items: center;
   gap: 10px;
 }
-
 
 th .cell {
   font-weight: 700 !important;
